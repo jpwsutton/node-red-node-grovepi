@@ -1,0 +1,14 @@
+{
+    "name"          : "node-red-node-grovepi",
+    "version"       : "0.0.1",
+    "description"   : "Input and Output nodes for the GrovePi",
+    "dependencies"  : {
+
+    },
+    "keywords" : [ "node-red", "grovepi"],
+    "node-red" : {
+        "nodes" : {
+            "grovepi" : "grovepi/grovepi.js"
+        }
+    }
+}
