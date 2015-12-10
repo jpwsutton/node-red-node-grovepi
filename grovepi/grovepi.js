@@ -33,7 +33,7 @@ module.exports = function(RED) {
           this.log("GrovePiBoard has already been initilised");
         } else {
           this.warn("Not Initislised yet, starting GrovePiBoard");
-          board =
+          board = new GrovePiBoard();
           board.init();
         }
 

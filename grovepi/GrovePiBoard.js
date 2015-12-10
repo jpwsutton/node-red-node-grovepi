@@ -32,7 +32,7 @@ var state = STATE_UNINITIALISED;
    console.log('Un Registering Sensor');
  }
 
-
+module.exports = GrovePiBoard;
  // var Commands = GrovePi.commands;
  // var Board = GrovePi.board;
  // var LightAnalogSensor = GrovePi.sensors.LightAnalog;
