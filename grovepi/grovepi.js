@@ -17,7 +17,7 @@
  **/
 module.exports = function(RED) {
     "use strict";
-    var GrovePiBoard = require('GrovePiBoard').GrovePiBoard
+    var GrovePiBoard = require('./GrovePiBoard').GrovePiBoard
 
     var board = new GrovePiBoard();
 
