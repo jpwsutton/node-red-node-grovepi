@@ -17,37 +17,38 @@
  **/
 module.exports = function(RED) {
     "use strict";
-    var GrovePi = require('node-grovepi').GrovePi;
+    var GrovePiBoard = require('GrovePiBoard').GrovePiBoard
+
+    var board = null;
+
 
 
     function GrovePiLightSensorNode(config) {
         RED.nodes.createNode(this,config);
         var node = this;
 
-        var Commands = GrovePi.commands;
-        var Board = GrovePi.board;
-        var LightAnalogSensor = GrovePi.sensors.LightAnalog;
+        if(typeof board ===  "object"){
+          // Board has been initialised
+          this.log("GrovePiBoard has already been initilised");
+        } else {
+          this.warn("Not Initislised yet, starting GrovePiBoard");
+          board = new GrovePiBoard();
+          board.init();
+        }
 
-        var board = new Board({
-          debug: true,
-          onError: function(err){
-            console.log('GrovePiLightSensorNode: Something went wrong');
-            console.log(err);
-          },
-          onInit: function(res) {
-            if(res) {
-              var lightSensor = new LightAnalogSensor(2);
-              console.log('Light Analog Sensor (start watch)');
-              lightSensor.on('change', function(res) {
-                console.log('Light onChange value=' + res);
-                var msg = {};
-                msg.payload = res;
-                node.send(msg);
-              })
-            }
-          }
+        var sensor = board.registerSensor('lightAnalog', 2, function(response){
+          var msg = {};
+          msg.payload = response;
+          node.send(msg);
         });
-        board.init();
+
+        this.on('close', function(done) {
+          this.log("UnRegistering Sensor");
+          board.unRegisterSensor(sensor, function(){
+            done();
+          });
+        });
+
 
     }
     RED.nodes.registerType("Grove Light Sensor",GrovePiLightSensorNode);
