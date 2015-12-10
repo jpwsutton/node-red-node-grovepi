@@ -19,15 +19,16 @@ module.exports = function(RED) {
     "use strict";
     var GrovePiBoard = require('./GrovePiBoard').GrovePiBoard
 
-    var board = new GrovePiBoard();
-
-
 
     function GrovePiLightSensorNode(config) {
         RED.nodes.createNode(this,config);
-        var node = this;
 
-        if(board.isInitialised){
+        // Retrieve the board-config node
+       this.boardConfig = RED.nodes.getNode(config.board);
+
+       var node = this;
+
+        if(node.boardConfig){
           // Board has been initialised
           this.log("GrovePiBoard has already been initilised");
         } else {
@@ -52,4 +53,13 @@ module.exports = function(RED) {
 
     }
     RED.nodes.registerType("Grove Light Sensor",GrovePiLightSensorNode);
+
+    function GrovePiConfigNode(n) {
+       RED.nodes.createNode(this,n);
+       this.boardType = n.boardType;
+       this.name = n.name;
+       this.usedPins = [];
+       // this.groveBoard = new grovePiBoard();
+   }
+   RED.nodes.registerType("grovepi-config",GrovePiConfigNode);
 }

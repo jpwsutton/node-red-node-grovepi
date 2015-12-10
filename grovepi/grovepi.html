@@ -24,3 +24,31 @@
 <script type="text/x-red" data-help-name="Grove Light Sensor">
     <p>A simple node that converts the message payloads into all lower-case characters</p>
 </script>
+
+
+
+
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('grovepi-config',{
+        category: 'config',
+        defaults: {
+            boardType: {value:"GrovePi", required:true},
+            name: {value:"", required:false},
+        },
+        label: function() {
+            return this.boardType + "-" + this.name;
+        }
+    });
+</script>
+<script type="text/x-red" data-template-name="grovepi-config">
+    <div class="form-row">
+        <label for="node-config-input-boardType"><i class="icon-bookmark"></i> Board Type </label>
+        <input type="text" id="node-config-input-boardType">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="icon-bookmark"></i> Name </label>
+        <input type="text" id="node-config-input-name">
+    </div>
+</script>
