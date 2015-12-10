@@ -30,25 +30,32 @@ module.exports = function(RED) {
 
         if(node.boardConfig){
           // Board has been initialised
-          this.log("GrovePiBoard has already been initilised");
+          this.log("Configuration Found")
+          if(node.boardConfig.groveBoard){
+            this.log("GrovePiBoard has already been initilised");
+          } else {
+            this.warn("Not Initislised yet, starting GrovePiBoard");
+            node.boardConfig.groveBoard = new GrovePiBoard();
+            node.boardConfig.groveBoard.init();
+          }
+          this.log("Can now do stuff!");
+
         } else {
-          this.warn("Not Initislised yet, starting GrovePiBoard");
-          board = new GrovePiBoard();
-          board.init();
+          node.error("Node has no configuration!");
         }
 
-        var sensor = board.registerSensor('lightAnalog', 2, function(response){
-          var msg = {};
-          msg.payload = response;
-          node.send(msg);
-        });
-
-        this.on('close', function(done) {
-          this.log("UnRegistering Sensor");
-          board.unRegisterSensor(sensor, function(){
-            done();
-          });
-        });
+        // var sensor = board.registerSensor('lightAnalog', 2, function(response){
+        //   var msg = {};
+        //   msg.payload = response;
+        //   node.send(msg);
+        // });
+        //
+        // this.on('close', function(done) {
+        //   this.log("UnRegistering Sensor");
+        //   board.unRegisterSensor(sensor, function(){
+        //     done();
+        //   });
+        // });
 
 
     }
