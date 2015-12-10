@@ -36,8 +36,10 @@ module.exports = function(RED) {
           },
           onInit: function(res) {
             if(res) {
-              var lightSensor = new LightAnalogSensor(2)
+              var lightSensor = new LightAnalogSensor(2);
+              console.log('Light Analog Sensor (start watch)');
               lightSensor.on('change', function(res) {
+                console.log('Light onChange value=' + res);
                 var msg = {};
                 msg.payload = res;
                 node.send(msg);
