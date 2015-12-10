@@ -19,7 +19,7 @@ module.exports = function(RED) {
     "use strict";
     var GrovePiBoard = require('GrovePiBoard').GrovePiBoard
 
-    var board = null;
+    var board = new GrovePiBoard();
 
 
 
@@ -27,12 +27,12 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         var node = this;
 
-        if(typeof board ===  "object"){
+        if(board.isInitialised){
           // Board has been initialised
           this.log("GrovePiBoard has already been initilised");
         } else {
           this.warn("Not Initislised yet, starting GrovePiBoard");
-          board = new GrovePiBoard();
+          board =
           board.init();
         }
 
