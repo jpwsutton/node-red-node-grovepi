@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Grove Button',{
+    RED.nodes.registerType('Grove Light Sensor',{
         category: 'inputs',
         color: '#a6bbcf',
         defaults: {
@@ -9,18 +9,18 @@
         outputs:1,
         icon: "arrow-in.png",
         label: function() {
-            return this.name||"Grove Button";
+            return this.name||"Grove Light Sensor";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="Grove Button">
+<script type="text/x-red" data-template-name="Grove Light Sensor">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="Grove Button">
+<script type="text/x-red" data-help-name="Grove Light Sensor">
     <p>A simple node that converts the message payloads into all lower-case characters</p>
 </script>
