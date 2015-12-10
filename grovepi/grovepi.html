@@ -3,7 +3,8 @@
         category: 'inputs',
         color: '#a6bbcf',
         defaults: {
-            name: {value:""}
+            name: {value:""},
+            board: {type:"board-config", required:true}
         },
         inputs:0,
         outputs:1,
@@ -15,6 +16,10 @@
 </script>
 
 <script type="text/x-red" data-template-name="Grove Light Sensor">
+    <div class="form-row">
+         <label for="node-input-grovepi"><i class="fa fa-tasks"></i> Board</label>
+         <input type="text" id="node-input-board">
+     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
