@@ -1,26 +1,26 @@
 <script type="text/javascript">
-    RED.nodes.registerType('grove-pi',{
-        category: 'function',
+    RED.nodes.registerType('Grove Button',{
+        category: 'inputs',
         color: '#a6bbcf',
         defaults: {
             name: {value:""}
         },
-        inputs:1,
+        inputs:0,
         outputs:1,
-        icon: "file.png",
+        icon: "arrow-in.png",
         label: function() {
-            return this.name||"grove-pi";
+            return this.name||"Grove Button";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="grove-pi">
+<script type="text/x-red" data-template-name="Grove Button">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="grove-pi">
+<script type="text/x-red" data-help-name="Grove Button">
     <p>A simple node that converts the message payloads into all lower-case characters</p>
 </script>
