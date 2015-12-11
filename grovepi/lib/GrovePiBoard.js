@@ -10,6 +10,7 @@ var state = STATE_UNINITIALISED;
 
 
 
+
  };
 
  GrovePiBoard.prototype.isInitialised = function(){
@@ -21,18 +22,33 @@ var state = STATE_UNINITIALISED;
  }
 
  GrovePiBoard.prototype.init = function() {
-   console.log('GrovePiBoard: init called');
  };
 
- GrovePiBoard.prototype.registerSensor = function(sensorType, pin, callback){
-   console.log('Registering Sensor');
+ GrovePiBoard.prototype.registerSensor = function(sensorType, pin, repeat, callback){
+   var sensor = new Sensor(sensorType, pin, repeat, callback);
+   return sensor;
  }
 
- GrovePiBoard.prototype.unRegisterSensor = function(sensor){
-   console.log('Un Registering Sensor');
- }
+
 
 module.exports = GrovePiBoard;
+
+
+var Sensor = function(type, pin, repeat, callback) {
+    if(type == 'analog'){
+    this.testTimer = setInterval(function(){
+                        callback('Analog Pin: ' + pin + ' says hello.');
+                    }, repeat * 1000);
+    } else if(type == 'digital'){
+
+    }
+};
+
+Sensor.prototype.unregister = function(callback){
+    clearInterval(this.testTimer);
+    callback();
+};
+
  // var Commands = GrovePi.commands;
  // var Board = GrovePi.board;
  // var LightAnalogSensor = GrovePi.sensors.LightAnalog;

@@ -9,12 +9,16 @@ Install
 Usage
 -----
 
-Provides two nodes -  one to read sensor data, and one to control actuators.
+Provides a few node, some to read data from sensors and a few to send data to actuators.
 
 
-### Input
+### Analog Input
 
-Reads data from GrovePi sensors.
+Reads data from GrovePi Analog sensors.
+
+### Digital Input
+
+Reads data from GrovePi Digital sensors.
 
 ### Output
 
@@ -22,6 +26,11 @@ Sends data to GrovePi Actuators e.g. LEDs, Buzzers, Liquid Crystal Displays
 
 To-Do
 -----
+ * GrovePi NodeJS bindings
+ * Digital Sensor callbacks require sensor specific code
+ * Digital Output Node
+ * Serial Node for Graphical LCD
+ * I2C Nodes?
 
 
 Known Issues

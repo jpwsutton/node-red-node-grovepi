@@ -17,49 +17,92 @@
  **/
 module.exports = function(RED) {
     "use strict";
-    var GrovePiBoard = require('./GrovePiBoard').GrovePiBoard
+    var GrovePiBoard = require('./lib/GrovePiBoard');
 
 
-    function GrovePiLightSensorNode(config) {
+    function GrovePiAnalogSensorNode(config) {
         RED.nodes.createNode(this,config);
-
         // Retrieve the board-config node
        this.boardConfig = RED.nodes.getNode(config.board);
+       this.pin = config.pin;
+       this.repeat = config.repeat;
+       this.log("Analog Sensor: Pin: " + this.pin + ", Repeat: " + this.repeat);
 
        var node = this;
 
         if(node.boardConfig){
           // Board has been initialised
           this.log("Configuration Found")
-          if(node.boardConfig.groveBoard){
+          if(node.boardConfig.board){
             this.log("GrovePiBoard has already been initilised");
           } else {
             this.warn("Not Initislised yet, starting GrovePiBoard");
-            node.boardConfig.groveBoard = new GrovePiBoard();
-            node.boardConfig.groveBoard.init();
+            node.boardConfig.board = new GrovePiBoard();
+            node.boardConfig.board.init();
           }
           this.log("Can now do stuff!");
+
+          this.sensor = node.boardConfig.board.registerSensor('analog', this.pin, this.repeat, function(response){
+              var msg = {};
+              msg.payload = response;
+              node.send(msg);
+          });
+
+          this.on('close', function(done) {
+              this.log('unregistering analog Sensor');
+              this.sensor.unregister(function(){
+                  this.log('Sensor successfuly un registered.');
+                  done();
+              });
+          });
 
         } else {
           node.error("Node has no configuration!");
         }
-
-        // var sensor = board.registerSensor('lightAnalog', 2, function(response){
-        //   var msg = {};
-        //   msg.payload = response;
-        //   node.send(msg);
-        // });
-        //
-        // this.on('close', function(done) {
-        //   this.log("UnRegistering Sensor");
-        //   board.unRegisterSensor(sensor, function(){
-        //     done();
-        //   });
-        // });
-
-
     }
-    RED.nodes.registerType("Grove Light Sensor",GrovePiLightSensorNode);
+    RED.nodes.registerType("grove analog sensor",GrovePiAnalogSensorNode);
+
+    function GrovePiDigitalSensorNode(config) {
+        RED.nodes.createNode(this,config);
+        // Retrieve the board-config node
+       this.boardConfig = RED.nodes.getNode(config.board);
+       this.pin = config.pin;
+       this.repeat = config.repeat;
+       this.log("Digital Sensor: Pin: " + this.pin + ", Repeat: " + this.repeat);
+
+       var node = this;
+
+        if(node.boardConfig){
+          // Board has been initialised
+          this.log("Configuration Found")
+          if(node.boardConfig.board){
+            this.log("GrovePiBoard has already been initilised");
+          } else {
+            this.warn("Not Initislised yet, starting GrovePiBoard");
+            node.boardConfig.board = new GrovePiBoard();
+            node.boardConfig.board.init();
+          }
+          this.log("Can now do stuff!");
+
+          this.sensor = node.boardConfig.board.registerSensor('digital', this.pin, this.repeat, function(response){
+              var msg = {};
+              msg.payload = response;
+              node.send(msg);
+          });
+
+          this.on('close', function(done) {
+              this.log('unregistering digital Sensor');
+              this.sensor.unregister(function(){
+                  this.log('Sensor successfuly un registered.');
+                  done();
+              });
+          });
+
+        } else {
+          node.error("Node has no configuration!");
+        }
+    }
+    RED.nodes.registerType("grove digital sensor",GrovePiDigitalSensorNode);
 
     function GrovePiConfigNode(n) {
        RED.nodes.createNode(this,n);
@@ -68,5 +111,5 @@ module.exports = function(RED) {
        this.usedPins = [];
        // this.groveBoard = new grovePiBoard();
    }
-   RED.nodes.registerType("grovepi-config",GrovePiConfigNode);
+   RED.nodes.registerType("board-config",GrovePiConfigNode);
 }
