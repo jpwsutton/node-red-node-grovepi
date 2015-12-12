@@ -104,6 +104,41 @@ module.exports = function(RED) {
     }
     RED.nodes.registerType("grove digital sensor",GrovePiDigitalSensorNode);
 
+    function GrovePiOutputNode(config) {
+        RED.nodes.createNode(this,config);
+        // Retrieve the board-config node
+       this.boardConfig = RED.nodes.getNode(config.board);
+       this.pin = config.pin;
+       this.repeat = config.repeat;
+       this.log("Output: Pin: " + this.pin);
+
+       var node = this;
+
+        if(node.boardConfig){
+          // Board has been initialised
+          this.log("Configuration Found")
+          if(node.boardConfig.board){
+            this.log("GrovePiBoard has already been initilised");
+          } else {
+            this.warn("Not Initislised yet, starting GrovePiBoard");
+            node.boardConfig.board = new GrovePiBoard();
+            node.boardConfig.board.init();
+          }
+          this.log("Can now do stuff!");
+
+
+
+          this.on('close', function(done) {
+              this.log('unregistering output');
+
+          });
+
+        } else {
+          node.error("Node has no configuration!");
+        }
+    }
+    RED.nodes.registerType("grove output",GrovePiOutputNode);
+
     function GrovePiConfigNode(n) {
        RED.nodes.createNode(this,n);
        this.boardType = n.boardType;

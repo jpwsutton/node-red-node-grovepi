@@ -204,6 +204,52 @@
 </script>
 <!-- End of Grove Pi Digital Sensor Node -->
 
+<!-- Grove Pi Output Node -->
+<script type="text/x-red" data-template-name="grove output">
+    <div class="form-row" id="grovepi-board-row">
+        <label for="node-input-board"><i class="fa fa-cogs"></i> Board</label>
+         <input type="text" id="node-input-board">
+    </div>
+    <div class="form-row" id="grovepi-pin-row">
+        <label for="node-input-pin"><i class="fa fa-tags"></i> Digital Pin</label>
+        <select id="node-input-pin">
+            <option value="2">Digital 2</option>
+            <option value="3">Digital 3</option>
+            <option value="4">Digital 4</option>
+            <option value="5">Digital 5</option>
+            <option value="6">Digital 6</option>
+            <option value="7">Digital 7</option>
+            <option value="8">Digital 8</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="grove output">
+    <p>Receives input from the preceding node and turns the selected pi on or off</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('grove output',{
+        category: 'GrovePi',
+        color: '#C7E9C0',
+        defaults: {
+            name: {value:""},
+            board: {type:"board-config", required:true},
+            pin: {value:"2", required: true}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "grove.png",
+        label: function() {
+            return this.name||"grove output";
+        }
+    });
+</script>
+<!-- End of Grove Pi Output Node -->
 
 
 
