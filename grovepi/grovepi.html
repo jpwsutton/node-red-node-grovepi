@@ -56,8 +56,8 @@
         color: '#C7E9C0',
         defaults: {
             name: {value:""},
-            pin: {value:0, required: true},
-            repeat: {value: "1"},
+            pin: {value:"0", required: true},
+            repeat: {value: "1", required: true},
             board: {type:"board-config", required:true}
         },
         inputs:0,
@@ -109,12 +109,12 @@
          <input type="text" id="node-input-board">
     </div>
     <div class="form-row" id="grovepi-digital-type-row">
-        <label for="node-input-type"><i class="fa fa-tags"></i> Sensor Type</label>
-        <select id="node-input-type">
+        <label for="node-input-sensor"><i class="fa fa-tags"></i> Sensor Type</label>
+        <select id="node-input-sensor">
             <option value="button">Button</option>
-            <option value="sound">Sound</option>
-            <option value="ultrasonic">Ultrasonic Range</option>
-            <option value="temp-hum">Temperature / Humidity</option>
+            <option value="Sound">Sound</option>
+            <option value="Ultrasonic">Ultrasonic Range</option>
+            <option value="temphum">Temperature / Humidity</option>
         </select>
     </div>
     <div class="form-row" id="grovepi-pin-row">
@@ -144,21 +144,6 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
-<style>
-    .interval-row {
-    }
-    .interval-time-row select {
-        margin: 3px 0;
-    }
-    .interval-row > .ui-spinner {
-        height: 28px;
-        margin: 3px 0;
-        border-color: rgb(204, 204, 204);
-    }
-    .interval-time-count {
-        width: 40px !important;
-    }
-</style>
 <script type="text/x-red" data-help-name="grove digital sensor">
     <p>Sends the reading from a Grove digital sensor to the next node</p>
     <p>The Reading will be in plain text in <b>msg.payload</b></p>
@@ -173,10 +158,10 @@
         color: '#C7E9C0',
         defaults: {
             name: {value:""},
-            type: {value: "", required: true},
-            pin: {value:0, required: true},
-            repeat: {value: "1"},
-            board: {type:"board-config", required:true}
+            board: {type:"board-config", required:true},
+            sensor: {value:"button", required: true},
+            repeat: {value: "1", required: true},
+            pin: {value:"2", required: true}
         },
         inputs:0,
         outputs:1,
@@ -200,8 +185,7 @@
            $("#node-input-interval").val(c);
            $("#node-input-interval-units").val(r);
 
-       },
-       oneditsave: function() {
+        },oneditsave: function() {
            var repeat = "";
            var count = $("#node-input-interval").val();
            var units = $("#node-input-interval-units").val();
@@ -215,7 +199,7 @@
                }
            }
            $("#node-input-repeat").val(repeat);
-       }
+        }
     });
 </script>
 <!-- End of Grove Pi Digital Sensor Node -->
