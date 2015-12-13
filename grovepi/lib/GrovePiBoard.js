@@ -8,7 +8,25 @@ var state = STATE_UNINITIALISED;
  var GrovePiBoard = function() {
    console.log('Initialising GrovePiBoard');
    this.commands = GrovePi.commands;
-   this.analogSensors = [];
+   this.board = new GrovePi.board({
+     debug: true,
+     onError: function(err){
+       console.log('GrovePiBoard.js: Something went wrong');
+       console.log(err)
+     },
+     onInit: function(res) {
+       console.log('GrovePiBoard.js: GrovePi onInit');
+       if(res){
+         console.log('GrovePiBoard.js: GrovePi Version :: ' + board.version());
+
+         // Get & init Digital inputs
+
+         // Get & init Outputs
+       } else {
+         console.log('GrovePiBoard.js: No Res');
+       }
+     }
+   });
 
  };
 
@@ -22,37 +40,8 @@ var state = STATE_UNINITIALISED;
 
  GrovePiBoard.prototype.init = function() {
    console.log('GrovePiBoard.js: Starting init');
-   var board = new GrovePi.board({
-     debug: true,
-     onError: function(err){
-       console.log('GrovePiBoard.js: Something went wrong');
-       console.log(err)
-     },
-     onInit: function(res) {
-       console.log('GrovePiBoard.js: GrovePi onInit');
-       if(res){
-         console.log('GrovePiBoard.js: GrovePi Version :: ' + board.version());
-         var analogArray = [];
-
-         // Get & init Analog inputs
-         for (var i = 0; i < this.analogSensors.length; i++) {
-           console.log('New Analog Sensor');
-           console.log(this.analogSensors[i]);
-           var aSensor = new GrovePi.sensors.Analog(this.analogSensors[i].pin);
-           //Do something
-           aSensor.stream(repeat, this.analogSensors[i].callback);
-         }
-
-         // Get & init Digital inputs
-
-         // Get & init Outputs
-       } else {
-         console.log('GrovePiBoard.js: No Res');
-       }
-     }
-   });
-   console.log('GrovePiBoard.js: Calling init');
-   board.init();
+   console.log(this.board);
+   this.board.init();
  };
 
  GrovePiBoard.prototype.registerSensor = function(sensorType, pin, repeat, callback){
