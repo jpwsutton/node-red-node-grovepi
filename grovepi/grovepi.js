@@ -38,7 +38,6 @@ module.exports = function(RED) {
           } else {
             this.warn("Not Initislised yet, starting GrovePiBoard");
             node.boardConfig.board = new GrovePiBoard();
-            node.boardConfig.board.init();
           }
           this.log("Can now do stuff!");
 
@@ -55,6 +54,8 @@ module.exports = function(RED) {
                   done();
               });
           });
+
+          node.boardConfig.board.init();
 
         } else {
           node.error("Node has no configuration!");

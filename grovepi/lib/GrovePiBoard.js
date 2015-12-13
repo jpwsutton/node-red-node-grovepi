@@ -8,6 +8,7 @@ var state = STATE_UNINITIALISED;
  var GrovePiBoard = function() {
    console.log('Initialising GrovePiBoard');
    this.commands = GrovePi.commands;
+   this.analogSensors = [];
 
  };
 
@@ -31,8 +32,16 @@ var state = STATE_UNINITIALISED;
        console.log('GrovePiBoard.js: GrovePi onInit');
        if(res){
          console.log('GrovePiBoard.js: GrovePi Version :: ' + board.version());
+         var analogArray = [];
 
          // Get & init Analog inputs
+         for (var i = 0; i < this.analogSensors.length; i++) {
+           console.log('New Analog Sensor');
+           console.log(this.analogSensors[i]);
+           var aSensor = new GrovePi.sensors.Analog(this.analogSensors[i].pin);
+           //Do something
+           aSensor.stream(repeat, this.analogSensors[i].callback);
+         }
 
          // Get & init Digital inputs
 
@@ -48,6 +57,7 @@ var state = STATE_UNINITIALISED;
 
  GrovePiBoard.prototype.registerSensor = function(sensorType, pin, repeat, callback){
    var sensor = new Sensor(sensorType, pin, repeat, callback);
+   this.analogSensors.push(sensor);
    return sensor;
  }
 
@@ -57,10 +67,11 @@ module.exports = GrovePiBoard;
 
 
 var Sensor = function(type, pin, repeat, callback) {
+  this.pin = pin;
+  this.repeat = repeat;
+  this.callback = callback;
     if(type == 'analog'){
-    this.testTimer = setInterval(function(){
-                        callback('Analog Pin: ' + pin + ' says hello.');
-                    }, repeat * 1000);
+
     } else if(type == 'digital'){
 
     }
