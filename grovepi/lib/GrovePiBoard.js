@@ -1,4 +1,4 @@
-//var GrovePi = require('node-grovepi').GrovePi;
+var GrovePi = require('node-grovepi').GrovePi;
 var STATE_UNINITIALISED = 0;
 var STATE_INITIALISED = 1;
 
@@ -7,9 +7,7 @@ var state = STATE_UNINITIALISED;
 
  var GrovePiBoard = function() {
    console.log('Initialising GrovePiBoard');
-
-
-
+   this.commands = GrovePi.commands;
 
  };
 
@@ -22,6 +20,25 @@ var state = STATE_UNINITIALISED;
  }
 
  GrovePiBoard.prototype.init = function() {
+   this.board = new GrovePi.board({
+     debug: true,
+     onError: function(err){
+       console.log('GrovePiBoard.js: Something went wrong');
+       console.log(err)
+     },
+     onInit: function(res) {
+       if(res){
+         console.log('GrovePiBoard.js: GrovePi Version :: ' + this.board.version());
+
+         // Get & init Analog inputs
+
+         // Get & init Digital inputs
+
+         // Get & init Outputs
+       }
+     }
+   });
+   board.init();
  };
 
  GrovePiBoard.prototype.registerSensor = function(sensorType, pin, repeat, callback){
