@@ -47,12 +47,29 @@ var STATE_INITIALISED   = 1;
        clearInterval(interval);
        calllback();
      }
+   } else if(sensorType == 'digital'){
+     var self = this;
+     var interval = setInterval(function(){
+       var value = self.readDHTSensor.apply(self, [pin]);
+       callback(value);
+     }, repeat *1000);
+     return function(callback){
+       clearInterval(interval);
+       calllback();
+     }
+
    }
+ };
+
+ GrovePiBoard.prototype.readDHTSensor = function(pin){
+   var dhtSensor = new DHTDigitalSensor(pin);
+   var reading = dhtSensor.read();
+   return reading;
  };
 
  GrovePiBoard.prototype.input = function(pin, state){
    this.board.writeBytes(this.commands.dWrite.concat([pin, state, this.commands.unused]));
- }
+ };
 
  GrovePiBoard.prototype.readAnalogSensor = function(pin, length){
    if(typeof length == 'undefined'){

@@ -73,35 +73,36 @@ module.exports = function(RED) {
 
        var node = this;
 
-        if(node.boardConfig){
-          // Board has been initialised
-          this.log("Configuration Found")
-          if(node.boardConfig.board){
-            this.log("GrovePiBoard has already been initilised");
-          } else {
-            this.warn("Not Initislised yet, starting GrovePiBoard");
-            node.boardConfig.board = new GrovePiBoard();
-            node.boardConfig.board.init();
-          }
-          this.log("Can now do stuff!");
+       if(node.boardConfig){
+         // Board has been initialised
+         this.log("Configuration Found")
+         if(node.boardConfig.board){
+           this.log("GrovePiBoard has already been initilised");
+         } else {
+           this.warn("Not Initislised yet, starting GrovePiBoard");
+           node.boardConfig.board = new GrovePiBoard();
+         }
+         this.log("Can now do stuff!");
 
-          this.sensor = node.boardConfig.board.registerSensor('digital', this.pin, this.repeat, function(response){
-              var msg = {};
-              msg.payload = response;
-              node.send(msg);
-          });
+         this.sensor = node.boardConfig.board.registerSensor('digital', this.pin, this.repeat, function(response){
+             var msg = {};
+             msg.payload = response;
+             node.send(msg);
+         });
 
-          this.on('close', function(done) {
-              this.log('unregistering digital Sensor');
-              this.sensor.unregister(function(){
-                  this.log('Sensor successfuly un registered.');
-                  done();
-              });
-          });
+         this.on('close', function(done) {
+             this.log('unregistering digital Sensor');
+             this.sensor(function(){
+                 this.log('Sensor successfuly un registered.');
+                 done();
+             });
+         });
 
-        } else {
-          node.error("Node has no configuration!");
-        }
+         node.boardConfig.board.init();
+
+       } else {
+         node.error("Node has no configuration!");
+       }
     }
     RED.nodes.registerType("grove digital sensor",GrovePiDigitalSensorNode);
 
