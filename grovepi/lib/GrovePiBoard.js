@@ -1,12 +1,18 @@
 var GrovePi = require('node-grovepi').GrovePi;
 
-
+var STATE_UNINITIALISED = 0;
+var STATE_INITIALISED   = 1;
 
  var GrovePiBoard = function() {
    console.log('GrovePiBoard.js: Constructor');
-   this.results = this.init.apply(this);
+   this.state = this.state || STATE_UNINITIALISED;
+   console.log('GrovePiBoard.js: State: ' + this.state);
+   if(this.state == STATE_UNINITIALISED){
+     this.board = this.init.apply(this);
+     this.state = STATE_INITIALISED;
+   }
    console.log('GrovePiBoard.js: Init Complete');
-   console.log(this.results);
+   console.log(this.board);
 
  };
 
