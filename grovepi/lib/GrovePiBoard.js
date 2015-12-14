@@ -64,7 +64,11 @@ var STATE_INITIALISED   = 1;
  GrovePiBoard.prototype.readDHTSensor = function(pin){
    var dhtSensor = new GrovePi.sensors.DHTDigital(pin);
    var reading = dhtSensor.read();
-   return reading;
+   var formatted = {};
+   formatted.temperature = reading[0];
+   formatted.humdity = reading[1];
+   formatted.heatIndex = reading[3];
+   return formatted;
  };
 
  GrovePiBoard.prototype.input = function(pin, state){
