@@ -62,7 +62,7 @@ var STATE_INITIALISED   = 1;
  };
 
  GrovePiBoard.prototype.readDHTSensor = function(pin){
-   var dhtSensor = new DHTDigitalSensor(pin);
+   var dhtSensor = new GrovePi.sensors.DHTDigital(pin);
    var reading = dhtSensor.read();
    return reading;
  };
