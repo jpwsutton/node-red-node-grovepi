@@ -10,7 +10,7 @@ var STATE_INITIALISED   = 1;
    console.log('GrovePiBoard.js: State: ' + this.state);
    if(this.state == STATE_UNINITIALISED){
      this.board = this.init.apply(this);
-     this.commands = GrovePi.Commands;
+     this.commands = GrovePi.commands;
      this.state = STATE_INITIALISED;
    }
    console.log('GrovePiBoard.js: Init Complete');
@@ -48,8 +48,10 @@ var STATE_INITIALISED   = 1;
    if(sensorType == 'analog'){
    var self = this;
     var interval =  setInterval( function(){
-       var value = self.readAnalogSensor.apply(this,[pin] );
-     }, repeat);
+       console.log('GrovePiBoard.js: Checking Sensor');
+       var value = self.readAnalogSensor.apply(self,[pin] );
+       callback(value);
+     }, repeat * 1000);
 
    }
    this.analogSensors.push(sensor);
@@ -57,13 +59,14 @@ var STATE_INITIALISED   = 1;
  }
 
  GrovePiBoard.prototype.readAnalogSensor = function(pin, length){
-   if(typeof length = 'undefined'){
-     length - this.board.BYTESLEN;
+   var self = this;
+   if(typeof length == 'undefined'){
+     length - self.board.BYTESLEN;
    }
-   var writeRet = this.board.writeBytes(this.commands.aRead.concat([pin, this.commands.unused, this.commands.unused]));
+   var writeRet = self.board.writeBytes(self.commands.aRead.concat([pin, self.commands.unused, self.commands.unused]));
    if(writeRet){
-     this.board.readByte();
-     var bytes = this.board.readBytes(length);
+     self.board.readByte();
+     var bytes = self.board.readBytes(length);
      if(bytes instanceof Buffer) {
        return bytes[1] * 256 + bytes[2]
      } else {
