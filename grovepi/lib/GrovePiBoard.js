@@ -59,7 +59,7 @@ var STATE_INITIALISED   = 1;
  };
 
  GrovePiBoard.prototype.readAnalogSensor = function(pin, length){
-   if(typeof length = 'undefined'){
+   if(typeof length == 'undefined'){
      length - this.board.BYTESLEN;
    }
    var writeRet = this.board.writeBytes(this.commands.aRead.concat([pin, this.commands.unused, this.commands.unused]));
