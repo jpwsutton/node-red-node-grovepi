@@ -49,7 +49,7 @@ module.exports = function(RED) {
 
           this.on('close', function(done) {
               this.log('unregistering analog Sensor');
-              this.sensor.unregister(function(){
+              this.sensor(function(){
                   this.log('Sensor successfuly un registered.');
                   done();
               });
