@@ -6,7 +6,6 @@ var STATE_INITIALISED   = 1;
  var GrovePiBoard = function() {
    console.log('GrovePiBoard.js: Constructor');
    this.state = this.state || STATE_UNINITIALISED;
-   console.log('GrovePiBoard.js: State: ' + this.state);
    if(this.state == STATE_UNINITIALISED){
      this.board = this.init.apply(this);
      this.commands = GrovePi.commands;
@@ -22,19 +21,13 @@ var STATE_INITIALISED   = 1;
    var board = new GrovePi.board({
      debug: true,
      onError: function(err){
-       console.log('GrovePiBoard.js: Something went wrong');
-       console.log(err)
+       console.error('GrovePiBoard.js: Something went wrong');
+       console.error(err)
      },
      onInit: function(res) {
        console.log('GrovePiBoard.js: GrovePi onInit');
        if(res){
          console.log('GrovePiBoard.js: GrovePi Version :: ' + board.version());
-
-         // Get & init Digital inputs
-
-         // Get & init Outputs
-       } else {
-         console.log('GrovePiBoard.js: No Res');
        }
      }
    });
@@ -46,7 +39,6 @@ var STATE_INITIALISED   = 1;
    if(sensorType == 'analog'){
    var self = this;
    var interval =  setInterval( function(){
-       console.log('GrovePiBoard.js: Checking Sensor');
        var value = self.readAnalogSensor.apply(self,[pin] );
        callback(value);
      }, repeat * 1000);
@@ -57,6 +49,10 @@ var STATE_INITIALISED   = 1;
      }
    }
  };
+
+ GrovePiBoard.prototype.input = function(pin, state){
+   this.board.writeBytes(this.commands.dWrite.concat([pin, state, this.commands.unused]));
+ }
 
  GrovePiBoard.prototype.readAnalogSensor = function(pin, length){
    if(typeof length == 'undefined'){

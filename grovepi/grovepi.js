@@ -115,28 +115,33 @@ module.exports = function(RED) {
 
        var node = this;
 
-        if(node.boardConfig){
-          // Board has been initialised
-          this.log("Configuration Found")
-          if(node.boardConfig.board){
-            this.log("GrovePiBoard has already been initilised");
-          } else {
-            this.warn("Not Initislised yet, starting GrovePiBoard");
-            node.boardConfig.board = new GrovePiBoard();
-            node.boardConfig.board.init();
-          }
-          this.log("Can now do stuff!");
+       if(node.boardConfig){
+         // Board has been initialised
+         this.log("Configuration Found")
+         if(node.boardConfig.board){
+           this.log("GrovePiBoard has already been initilised");
+         } else {
+           this.warn("Not Initislised yet, starting GrovePiBoard");
+           node.boardConfig.board = new GrovePiBoard();
+         }
 
-
-
-          this.on('close', function(done) {
-              this.log('unregistering output');
-
+         this.on('input', function(msg) {
+              node.boardConfig.board.input(this.pin, msg.state);
           });
 
-        } else {
-          node.error("Node has no configuration!");
-        }
+         this.on('close', function(done) {
+             this.log('unregistering analog Sensor');
+             this.sensor(function(){
+                 this.log('Sensor successfuly un registered.');
+                 done();
+             });
+         });
+
+         node.boardConfig.board.init();
+
+       } else {
+         node.error("Node has no configuration!");
+       }
     }
     RED.nodes.registerType("grove output",GrovePiOutputNode);
 
