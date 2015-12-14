@@ -46,15 +46,14 @@ var STATE_INITIALISED   = 1;
    if(sensorType == 'analog'){
    var self = this;
     var interval =  setInterval( function(){
-       var value = self.readAnalogSensor.apply(this,[pin] );
+       var value = self.readAnalogSensor.apply(self,[pin] );
      }, repeat);
      return function(callback){
        clearInterval(interval);
        calllback();
      }
-
-   }   return sensor;
- }
+   }
+ };
 
  GrovePiBoard.prototype.readAnalogSensr = function(pin, length){
    if(typeof length = 'undefined'){
@@ -72,7 +71,7 @@ var STATE_INITIALISED   = 1;
    } else {
      return false;
    }
- }
+ };
 
 
 
