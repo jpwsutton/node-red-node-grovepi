@@ -46,8 +46,9 @@ var STATE_INITIALISED   = 1;
  GrovePiBoard.prototype.registerSensor = function(sensorType, pin, repeat, callback){
    var sensor = new Sensor(sensorType, pin, repeat, callback);
    if(sensorType == 'analog'){
+   var self = this;
     var interval =  setInterval( function(){
-       var value = this.readAnalogSensor.apply(this, pin, null);
+       var value = self.readAnalogSensor.apply(this,[pin] );
      }, repeat);
 
    }
