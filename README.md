@@ -56,13 +56,14 @@ Not sure how to do this yet. One thing at a time!
 To-Do
 -----
 - [x] Analog and Digital Input Nodes.
-- [ ] GrovePi NodeJS bindings.
-- [ ] Digital Sensor callbacks require sensor specific code.
+- [x] GrovePi NodeJS bindings.
+- [x] Digital Sensor callbacks require sensor specific code.
 - [x] Output Node.
 - [ ] Serial Node for Graphical LCD.
 - [ ] Allow Overrides of Output & LCD node through payloads.
-- [ ] Help Text for all nodes
+- [x] Help Text for all nodes
 - [ ] Improve node configuration i.e. auto-detect board.
+- [ ] Figure out the Sound Digital input sensor
 
 
 Known Issues

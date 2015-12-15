@@ -128,7 +128,7 @@ module.exports = function(RED) {
          }
 
          this.on('input', function(msg) {
-              node.boardConfig.board.input(this.pin, msg.state);
+              node.boardConfig.board.input(this.pin, msg.payload);
           });
 
          this.on('close', function(done) {
