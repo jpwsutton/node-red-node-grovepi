@@ -41,7 +41,7 @@ module.exports = function(RED) {
           }
           this.log("Can now do stuff!");
 
-          this.sensor = node.boardConfig.board.registerSensor('analog', this.pin, this.repeat, function(response){
+          this.sensor = node.boardConfig.board.registerSensor('analog', null, this.pin, this.repeat, function(response){
               var msg = {};
               msg.payload = response;
               node.send(msg);
@@ -68,8 +68,9 @@ module.exports = function(RED) {
         // Retrieve the board-config node
        this.boardConfig = RED.nodes.getNode(config.board);
        this.pin = config.pin;
+       this.sensor = config.sensor;
        this.repeat = config.repeat;
-       this.log("Digital Sensor: Pin: " + this.pin + ", Repeat: " + this.repeat);
+       this.log("Digital Sensor: Sensor: " + this.sensor + ", Pin: " + this.pin + ", Repeat: " + this.repeat);
 
        var node = this;
 
@@ -84,7 +85,7 @@ module.exports = function(RED) {
          }
          this.log("Can now do stuff!");
 
-         this.sensor = node.boardConfig.board.registerSensor('digital', this.pin, this.repeat, function(response){
+         this.sensor = node.boardConfig.board.registerSensor('digital', this.sensor, this.pin, this.repeat, function(response){
              var msg = {};
              msg.payload = response;
              node.send(msg);

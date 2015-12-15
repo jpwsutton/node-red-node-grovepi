@@ -35,7 +35,7 @@ var STATE_INITIALISED   = 1;
    return board;
  };
 
- GrovePiBoard.prototype.registerSensor = function(sensorType, pin, repeat, callback){
+ GrovePiBoard.prototype.registerSensor = function(sensorType, sensorSubType, pin, repeat, callback){
    if(sensorType == 'analog'){
    var self = this;
    var interval =  setInterval( function(){
@@ -49,16 +49,52 @@ var STATE_INITIALISED   = 1;
      }
    } else if(sensorType == 'digital'){
      var self = this;
-     var interval = setInterval(function(){
-       var value = self.readDHTSensor.apply(self, [pin]);
-       callback(value);
-     }, repeat *1000);
+     if(sensorSubType == 'button'){
+       var interval = setInterval(function(){
+         var value = self.readButtonSensor.apply(self, [pin]);
+         callback(value);
+       }, repeat * 1000);
+     } else if(sensorSubType == 'sound'){
+       var interval = setInterval(function(){
+         var value = self.readSoundSensor.apply(self, [pin]);
+         callback(value);
+       }, repeat * 1000);
+     } else if(sensorSubType == 'ultrasonic'){
+       var interval = setInterval(function(){
+         var value = self.readUltrasonicSensor.apply(self, [pin]);
+         callback(value);
+       }, repeat * 1000);
+     } else if(sensorSubType == 'temphum'){
+       var interval = setInterval(function(){
+         var value = self.readDHTSensor.apply(self, [pin]);
+         callback(value);
+       }, repeat *1000);
+     }
+
      return function(callback){
        clearInterval(interval);
        calllback();
      }
 
    }
+ };
+ GrovePiBoard.prototype.readButtonSensor = function(pin) {
+   var buttonSensor = new GrovePi.sensors.base.Digital(pin);
+   var reading = buttonSensor.read();
+   return reading;
+ };
+
+ GrovePiBoard.prototype.readSoundSensor = function(pin) {
+   // Not sure how to do this yet
+   var reading = {};
+   reading.value = "Unknown";
+   return reading;
+ };
+
+ GrovePiBoard.prototype.readUltrasonicSensor = function(pin) {
+   var ultrasonicSensor = new GrovePi.sensors.UltrasonicDigital(pin);
+   var reading = ultrasonicSensor.read();
+   return reading;
  };
 
  GrovePiBoard.prototype.readDHTSensor = function(pin){
@@ -67,7 +103,7 @@ var STATE_INITIALISED   = 1;
    var formatted = {};
    formatted.temperature = reading[0];
    formatted.humdity = reading[1];
-   formatted.heatIndex = reading[3];
+   formatted.heatIndex = reading[2];
    return formatted;
  };
 
