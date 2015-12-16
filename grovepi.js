@@ -17,7 +17,7 @@
  **/
 module.exports = function(RED) {
     "use strict";
-    var GrovePiBoard = require('./lib/GrovePiBoard');
+    var GrovePiBoard = require('./GrovePiBoard');
 
 
     function GrovePiAnalogSensorNode(config) {
