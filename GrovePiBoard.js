@@ -4,20 +4,15 @@ var STATE_UNINITIALISED = 0;
 var STATE_INITIALISED   = 1;
 
  var GrovePiBoard = function() {
-   console.log('GrovePiBoard.js: Constructor');
    this.state = this.state || STATE_UNINITIALISED;
    if(this.state == STATE_UNINITIALISED){
      this.board = this.init.apply(this);
      this.commands = GrovePi.commands;
      this.state = STATE_INITIALISED;
    }
-   console.log('GrovePiBoard.js: Init Complete');
-   console.log(this.board);
-
  };
 
  GrovePiBoard.prototype.init = function() {
-   console.log('GrovePiBoard.js: Init Function');
    var board = new GrovePi.board({
      debug: true,
      onError: function(err){
@@ -25,10 +20,6 @@ var STATE_INITIALISED   = 1;
        console.error(err)
      },
      onInit: function(res) {
-       console.log('GrovePiBoard.js: GrovePi onInit');
-       if(res){
-         console.log('GrovePiBoard.js: GrovePi Version :: ' + board.version());
-       }
      }
    });
    board.init();

@@ -32,14 +32,9 @@ module.exports = function(RED) {
 
         if(node.boardConfig){
           // Board has been initialised
-          this.log("Configuration Found")
-          if(node.boardConfig.board){
-            this.log("GrovePiBoard has already been initilised");
-          } else {
-            this.warn("Not Initislised yet, starting GrovePiBoard");
+          if(!node.boardConfig.board){
             node.boardConfig.board = new GrovePiBoard();
           }
-          this.log("Can now do stuff!");
 
           this.sensor = node.boardConfig.board.registerSensor('analog', null, this.pin, this.repeat, function(response){
               var msg = {};
@@ -48,9 +43,7 @@ module.exports = function(RED) {
           });
 
           this.on('close', function(done) {
-              this.log('unregistering analog Sensor');
               this.sensor(function(){
-                  this.log('Sensor successfuly un registered.');
                   done();
               });
           });
@@ -77,13 +70,9 @@ module.exports = function(RED) {
        if(node.boardConfig){
          // Board has been initialised
          this.log("Configuration Found")
-         if(node.boardConfig.board){
-           this.log("GrovePiBoard has already been initilised");
-         } else {
-           this.warn("Not Initislised yet, starting GrovePiBoard");
+         if(!node.boardConfig.board){
            node.boardConfig.board = new GrovePiBoard();
          }
-         this.log("Can now do stuff!");
 
          this.sensor = node.boardConfig.board.registerSensor('digital', this.sensor, this.pin, this.repeat, function(response){
              var msg = {};
@@ -92,9 +81,7 @@ module.exports = function(RED) {
          });
 
          this.on('close', function(done) {
-             this.log('unregistering digital Sensor');
-             this.sensor(function(){
-                 this.log('Sensor successfuly un registered.');
+            this.sensor(function(){
                  done();
              });
          });
@@ -119,11 +106,7 @@ module.exports = function(RED) {
 
        if(node.boardConfig){
          // Board has been initialised
-         this.log("Configuration Found")
-         if(node.boardConfig.board){
-           this.log("GrovePiBoard has already been initilised");
-         } else {
-           this.warn("Not Initislised yet, starting GrovePiBoard");
+         if(!node.boardConfig.board){
            node.boardConfig.board = new GrovePiBoard();
          }
 
@@ -132,9 +115,7 @@ module.exports = function(RED) {
           });
 
          this.on('close', function(done) {
-             this.log('unregistering analog Sensor');
              this.sensor(function(){
-                 this.log('Sensor successfuly un registered.');
                  done();
              });
          });
@@ -152,7 +133,6 @@ module.exports = function(RED) {
        this.boardType = n.boardType;
        this.name = n.name;
        this.usedPins = [];
-       // this.groveBoard = new grovePiBoard();
    }
    RED.nodes.registerType("board-config",GrovePiConfigNode);
 }
