@@ -1,24 +1,27 @@
 {
-    "name"          : "node-red-node-grovepi",
-    "version"       : "0.0.1",
-    "description"   : "Node-RED nodes that get sensor data and control ports on the GrovePi",
-    "dependencies"  : {
-        "node-grovepi" : "2.0.7"
-    },
-    "repository" : {
-      "type" : "git",
-      "url"  : "https://github.com/jpwsutton/node-red-node-grovepi"
-    },
-    "license" : "Apache-2.0",
-    "keywords" : [ "node-red", "grovepi"],
-    "node-red" : {
-        "nodes" : {
-            "grovepi" : "grovepi.js"
-        }
-    },
-    "author" : {
-      "name" : "James Sutton",
-      "email" : "james@jsutton.co.uk",
-      "url" : "http://jsutton.co.uk"
+  "name": "node-red-node-grovepi",
+  "version": "0.0.2",
+  "description": "Node-RED nodes that get sensor data and control ports on the GrovePi",
+  "dependencies": {
+    "node-grovepi": "2.0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jpwsutton/node-red-node-grovepi"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "node-red",
+    "grovepi"
+  ],
+  "node-red": {
+    "nodes": {
+      "grovepi": "grovepi.js"
     }
+  },
+  "author": {
+    "name": "James Sutton",
+    "email": "james@jsutton.co.uk",
+    "url": "http://jsutton.co.uk"
+  }
 }
