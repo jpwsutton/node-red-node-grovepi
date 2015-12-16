@@ -5,6 +5,12 @@ A <a href="http://nodered.org" target="_new">Node-RED</a> node to listen to and 
 Install
 -------
 
+Eventually this project will be able to be installed using npm. For now it requires a bit of manual work:
+* Clone the repository onto your raspberry pi
+* Install the node-grovepi npm (https://www.npmjs.com/package/node-grovepi)
+* Create a directory inside the /home/pi/.node-red or ~/.node-red called 'nodes'
+* Symlink the grovepi directory into the nodes directory (something like: `ln -s /home/pi/git/node-red-node-grovepi/grovepi grovepi`)
+
 
 Usage
 -----
@@ -64,6 +70,7 @@ To-Do
 - [x] Help Text for all nodes
 - [ ] Improve node configuration i.e. auto-detect board.
 - [ ] Figure out the Sound Digital input sensor
+- [ ] Get installation working with npm.
 
 
 Known Issues
