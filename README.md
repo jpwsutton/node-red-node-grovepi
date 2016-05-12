@@ -73,3 +73,6 @@ To-Do
 
 Known Issues
 ------------
+
+On the latest version of Raspbian, nodejs and node-red are pre-installed. However the version of nodejs is fairly old and prevents the official node-grovepi npm module from installing (node-grovepi is a dependency of this library).
+In order to get this to install correctly, Please uninstall nodejs and node-red and re-install manually by following the instructions here: http://nodered.org/docs/hardware/raspberrypi.html
