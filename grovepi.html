@@ -14,7 +14,7 @@
   limitations under the License.
 -->
 <!-- Grove Pi Analog Sensor Node -->
-<script type="text/x-red" data-template-name="grove analog sensor">
+<script type="text/x-red" data-template-name="analog sensor">
     <div class="form-row" id="grovepi-board-row">
         <label for="node-input-board"><i class="fa fa-cogs"></i> Board</label>
          <input type="text" id="node-input-board">
@@ -57,7 +57,7 @@
         width: 40px !important;
     }
 </style>
-<script type="text/x-red" data-help-name="grove analog sensor">
+<script type="text/x-red" data-help-name="analog sensor">
     <p>Sends the reading from a Grove analog sensor to the next node</p>
     <p>The Reading will be in plain text in <b>msg.payload</b></p>
     <p>Make sure that you select the correct Analog pin in the node config.
@@ -66,7 +66,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('grove analog sensor',{
+    RED.nodes.registerType('analog sensor',{
         category: 'GrovePi',
         color: '#4593CF',
         defaults: {
@@ -79,7 +79,7 @@
         outputs:1,
         icon: "grove.png",
         label: function() {
-            return this.name||"grove analog sensor";
+            return this.name||"analog sensor";
         },
         oneditprepare: function() {
 
@@ -118,7 +118,7 @@
 <!-- End of Grove Pi Analog Sensor Node -->
 
 <!-- Grove Pi Digital Sensor Node -->
-<script type="text/x-red" data-template-name="grove digital sensor">
+<script type="text/x-red" data-template-name="digital sensor">
     <div class="form-row" id="grovepi-board-row">
         <label for="node-input-board"><i class="fa fa-cogs"></i> Board</label>
          <input type="text" id="node-input-board">
@@ -159,7 +159,7 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
-<script type="text/x-red" data-help-name="grove digital sensor">
+<script type="text/x-red" data-help-name="digital sensor">
     <p>Sends the reading from a Grove digital sensor to the next node</p>
     <p>The Reading will be in <b>msg.payload</b> but will vary depending on the type of sensor</p>
     <p>Make sure that you select the correct Digital pin in the node config as well as the type of digital sensor.
@@ -168,7 +168,7 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('grove digital sensor',{
+    RED.nodes.registerType('digital sensor',{
         category: 'GrovePi',
         color: '#4593CF',
         defaults: {
@@ -182,7 +182,7 @@
         outputs:1,
         icon: "grove.png",
         label: function() {
-            return this.name||"grove digital sensor";
+            return this.name||"digital sensor";
         },
         oneditprepare: function() {
 
@@ -220,7 +220,7 @@
 <!-- End of Grove Pi Digital Sensor Node -->
 
 <!-- Grove Pi Output Node -->
-<script type="text/x-red" data-template-name="grove output">
+<script type="text/x-red" data-template-name="output">
     <div class="form-row" id="grovepi-board-row">
         <label for="node-input-board"><i class="fa fa-cogs"></i> Board</label>
          <input type="text" id="node-input-board">
@@ -243,13 +243,13 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="grove output">
+<script type="text/x-red" data-help-name="output">
     <p>Receives input from the preceding node and turns the selected pin on or off</p>
     <p>You can send it either 1 or 0, true or false</p>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('grove output',{
+    RED.nodes.registerType('output',{
         category: 'GrovePi',
         color: '#4593CF',
         defaults: {
@@ -261,7 +261,7 @@
         outputs:0,
         icon: "grove.png",
         label: function() {
-            return this.name||"grove output";
+            return this.name||"output";
         }
     });
 </script>

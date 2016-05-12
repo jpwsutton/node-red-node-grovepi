@@ -54,7 +54,7 @@ module.exports = function(RED) {
           node.error("Node has no configuration!");
         }
     }
-    RED.nodes.registerType("grove analog sensor",GrovePiAnalogSensorNode);
+    RED.nodes.registerType("analog sensor",GrovePiAnalogSensorNode);
 
     function GrovePiDigitalSensorNode(config) {
         RED.nodes.createNode(this,config);
@@ -92,7 +92,7 @@ module.exports = function(RED) {
          node.error("Node has no configuration!");
        }
     }
-    RED.nodes.registerType("grove digital sensor",GrovePiDigitalSensorNode);
+    RED.nodes.registerType("digital sensor",GrovePiDigitalSensorNode);
 
     function GrovePiOutputNode(config) {
         RED.nodes.createNode(this,config);
@@ -126,7 +126,7 @@ module.exports = function(RED) {
          node.error("Node has no configuration!");
        }
     }
-    RED.nodes.registerType("grove output",GrovePiOutputNode);
+    RED.nodes.registerType("output",GrovePiOutputNode);
 
     function GrovePiConfigNode(n) {
        RED.nodes.createNode(this,n);
