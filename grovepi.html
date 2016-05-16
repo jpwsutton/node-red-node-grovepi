@@ -79,7 +79,7 @@
         outputs:1,
         icon: "grove.png",
         label: function() {
-            return this.name||"analog sensor";
+            return this.name||"analog : " + this.pin;
         },
         oneditprepare: function() {
 
@@ -182,7 +182,7 @@
         outputs:1,
         icon: "grove.png",
         label: function() {
-            return this.name||"digital sensor";
+            return this.name||"digital " + this.sensor + " : " + this.pin;
         },
         oneditprepare: function() {
 
@@ -261,7 +261,7 @@
         outputs:0,
         icon: "grove.png",
         label: function() {
-            return this.name||"output";
+            return this.name||"output : " + this.pin;
         }
     });
 </script>
