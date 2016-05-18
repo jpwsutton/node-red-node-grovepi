@@ -35,10 +35,11 @@ module.exports = function(RED) {
           if(!node.boardConfig.board){
             node.boardConfig.board = new GrovePiBoard();
           }
-
+          var topicString = 'grovepi/analog/' + this.pin;    
           this.sensor = node.boardConfig.board.registerSensor('analog', null, this.pin, this.repeat, function(response){
               var msg = {};
               msg.payload = response;
+              msg.topic = topicString;
               node.send(msg);
           });
 
@@ -73,10 +74,11 @@ module.exports = function(RED) {
          if(!node.boardConfig.board){
            node.boardConfig.board = new GrovePiBoard();
          }
-
+         var topicString = 'grovepi/' + this.sensor + '/' + this.pin;
          this.sensor = node.boardConfig.board.registerSensor('digital', this.sensor, this.pin, this.repeat, function(response){
              var msg = {};
              msg.payload = response;
+             msg.topic = topicString;
              node.send(msg);
          });
 
