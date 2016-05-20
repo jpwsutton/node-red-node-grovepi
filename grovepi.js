@@ -37,10 +37,12 @@ module.exports = function(RED) {
           }
           var topicString = 'grovepi/analog/' + this.pin;    
           this.sensor = node.boardConfig.board.registerSensor('analog', null, this.pin, this.repeat, function(response){
-              var msg = {};
-              msg.payload = response;
-              msg.topic = topicString;
-              node.send(msg);
+             if(typeof response !== 'undefined'){
+		var msg = {};
+              	msg.payload = response;
+              	msg.topic = topicString;
+              	node.send(msg);
+	      }
           });
 
           this.on('close', function(done) {
@@ -76,10 +78,12 @@ module.exports = function(RED) {
          }
          var topicString = 'grovepi/' + this.sensor + '/' + this.pin;
          this.sensor = node.boardConfig.board.registerSensor('digital', this.sensor, this.pin, this.repeat, function(response){
-             var msg = {};
-             msg.payload = response;
-             msg.topic = topicString;
-             node.send(msg);
+	     if(typeof response !== 'undefined'){
+             	var msg = {};
+             	msg.payload = response;
+	        msg.topic = topicString;
+             	node.send(msg);
+	     }
          });
 
          this.on('close', function(done) {
