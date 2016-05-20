@@ -39,7 +39,7 @@ module.exports = function(RED) {
           this.sensor = node.boardConfig.board.registerSensor('analog', null, this.pin, this.repeat, function(response){
              if(typeof response !== 'undefined'){
 		var msg = {};
-              	msg.payload = response;
+              	msg.payload = Number(response);
               	msg.topic = topicString;
               	node.send(msg);
 	      }
