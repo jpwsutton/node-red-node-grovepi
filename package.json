@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "Node-RED nodes that get sensor data and control ports on the GrovePi",
   "dependencies": {
-    "node-grovepi": "2.0.7"
+    "node-grovepi": "^2.1.1"
   },
   "repository": {
     "type": "git",
